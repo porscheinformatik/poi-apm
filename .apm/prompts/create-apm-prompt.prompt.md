@@ -1,5 +1,5 @@
 ---
-description: Create a new prompt based on an existing chat.
+description: Create or update a prompt based on an existing chat.
 ---
 
 1. If no target prompt file is selected or provided, ask for one.

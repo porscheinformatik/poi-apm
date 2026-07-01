@@ -1,27 +1,15 @@
 lockfile_version: '1'
-generated_at: '2026-07-01T05:07:03.037498+00:00'
+generated_at: '2026-07-01T06:54:00.889694+00:00'
 dependencies: []
 local_deployed_files:
 - .agents/skills/author-apm
 - .agents/skills/author-apm/SKILL.md
-- .claude/commands/create-apm-instructions.md
-- .claude/commands/create-apm-prompt.md
-- .claude/commands/create-apm-skill.md
-- .claude/commands/create-apm-summary.md
-- .claude/commands/improve-apm.md
-- .claude/commands/review-apm.md
 - .claude/rules/apm-agents.md
 - .claude/rules/apm-instructions.md
 - .claude/rules/apm-prompts.md
 - .claude/rules/apm-skills.md
 - .claude/skills/author-apm
 - .claude/skills/author-apm/SKILL.md
-- .gemini/commands/create-apm-instructions.toml
-- .gemini/commands/create-apm-prompt.toml
-- .gemini/commands/create-apm-skill.toml
-- .gemini/commands/create-apm-summary.toml
-- .gemini/commands/improve-apm.toml
-- .gemini/commands/review-apm.toml
 - .github/instructions/apm-agents.instructions.md
 - .github/instructions/apm-instructions.instructions.md
 - .github/instructions/apm-prompts.instructions.md
@@ -34,30 +22,18 @@ local_deployed_files:
 - .github/prompts/review-apm.prompt.md
 local_deployed_file_hashes:
   .agents/skills/author-apm/SKILL.md: sha256:a698c06d561f5370cfbc50d33c39e03ee106f5950a30bfddbc63000fc2756cbf
-  .claude/commands/create-apm-instructions.md: sha256:7e55b72b0e3094198b9df7d379ac7d8b7300912aad152381a98d5018096e6318
-  .claude/commands/create-apm-prompt.md: sha256:2e58dfe970781525c94e9fbc696ffbeeb749e0872cc6b37d25427987d003bab8
-  .claude/commands/create-apm-skill.md: sha256:f56eaf9f3b45a87b2771227950811e9e0901be8ea5beec886ef8a1b6674a2873
-  .claude/commands/create-apm-summary.md: sha256:c36ca26bd2eb42dc974c70033e7d28fcf492171bd6da6370f6e4f6f8d478ae84
-  .claude/commands/improve-apm.md: sha256:7dbd180df156721989f018b12ce2428ad84f1ecbdaf74d7df317cf06ebd96c9e
-  .claude/commands/review-apm.md: sha256:6d3df5bd98636906833fe69ecab1337f6a15c36108db3876cd06fde2d0a78fe7
   .claude/rules/apm-agents.md: sha256:f09271b0831e859533aa4cf9311daae2a28be021a1bb694115a5b00bb15ef210
   .claude/rules/apm-instructions.md: sha256:bc477f4351d05c40f907c315b5783542f6664fc461fc1710c23c4a0e3cff9943
   .claude/rules/apm-prompts.md: sha256:13d4022b26054cce70f95bc46dbcc962bf9c5ff3e961594bd4f1780d9354e210
   .claude/rules/apm-skills.md: sha256:38dc1152ea2a7b5423b2e275b56270be8f26a076ae23330c7e7202ae1d005854
   .claude/skills/author-apm/SKILL.md: sha256:a698c06d561f5370cfbc50d33c39e03ee106f5950a30bfddbc63000fc2756cbf
-  .gemini/commands/create-apm-instructions.toml: sha256:1deeeb2e582d3d6cd7910ba754d128c136fb3b0786bf5dbac26c016eb50d014f
-  .gemini/commands/create-apm-prompt.toml: sha256:49b322e4470f22fce422083195ab2859799fee8de34c132d70287a2fede97dc8
-  .gemini/commands/create-apm-skill.toml: sha256:be865771f2668e7b50c5f13b0761c86bd3e9df112d404dc06e855ef49b503052
-  .gemini/commands/create-apm-summary.toml: sha256:ab3aabfc6510e3ad8287912e48cde4b9e34d68782ed9412d1780ec62f8abdcd6
-  .gemini/commands/improve-apm.toml: sha256:c84595cc9d2f94263b8eb4643b5ab0bf64dc41ec0ffb28cf94bc0453ab61320f
-  .gemini/commands/review-apm.toml: sha256:bd9dac4f784a5d0368f63fe36abb77cb1e38bf7631521fec802dea9f343008c8
-  .github/instructions/apm-agents.instructions.md: sha256:fdb3d0c63522dc87011e34627e7c5aaaac59e445a0354966f54a17726f02f295
-  .github/instructions/apm-instructions.instructions.md: sha256:4d87c2ae2782fbf3c8d218f80c21a260d5a1fa0a0006da8ee8a71a4a0156d3a2
-  .github/instructions/apm-prompts.instructions.md: sha256:454239a9589d81632a4c84d7ceca270d37e01dcc863c3bb1b96c842836b50647
-  .github/instructions/apm-skills.instructions.md: sha256:c88142155b222e2471a1641a51138991df840b50e82c5ba7ab191edce7738c0f
-  .github/prompts/create-apm-instructions.prompt.md: sha256:70eef7b348b3fad6060df53d809e6dea78d652cfa28d32e4b9b991b390c2bc54
-  .github/prompts/create-apm-prompt.prompt.md: sha256:5d3c0351d70fefea477787aecc52bbf1cf46275b27cb1e7e4dd9f037e2b0310b
-  .github/prompts/create-apm-skill.prompt.md: sha256:15af86f405a3ffa9c84c79609fb3c41b21dd7ca2e06fe87faf038bc0fb654ebf
-  .github/prompts/create-apm-summary.prompt.md: sha256:ee9a25ec69ac47e4c31e01260d1d401858544ce2d5ab574cc158e9a2311cef60
+  .github/instructions/apm-agents.instructions.md: sha256:6bebb593ca7a2ddb6992ee760e6c89e872541658cd0543cd18d2ec635f649549
+  .github/instructions/apm-instructions.instructions.md: sha256:8b63390626815ed22b470ee7a62f13f93c8a5c0b5b40d26a124c6f17ccfae665
+  .github/instructions/apm-prompts.instructions.md: sha256:34717ee0cc1e425d030cc59f791cfd4848cd11892ff816ca2e7b3fa1fbded10c
+  .github/instructions/apm-skills.instructions.md: sha256:a2877deb5999897b0b7af1a9d31bd3b08952602c67e6ecefdd11fa529bf3888d
+  .github/prompts/create-apm-instructions.prompt.md: sha256:8649b7b5afaf08634b68d9e05a2be38dfe1d85e4c8cb0a02c01920cb75d9310b
+  .github/prompts/create-apm-prompt.prompt.md: sha256:1662083cc807b79cc8e9b2c46ba28d776ed348d5bdb93efd9af1edc06555e42f
+  .github/prompts/create-apm-skill.prompt.md: sha256:59439c0fbb2a06b889ee029e6e9d0e4396da9699fcc9bd2153f337a91cac3e59
+  .github/prompts/create-apm-summary.prompt.md: sha256:c2e594cdfe15b16cb5cf1bb1a1db09ce2e284bf1141bbcb60724957467e12132
   .github/prompts/improve-apm.prompt.md: sha256:bcfd2551a9edf95b0f629d731b0e3e28c8006093fcbaaabeee76c2362c470faa
   .github/prompts/review-apm.prompt.md: sha256:13ed421e557cbfc3f4ab7842d59d5e99771c3ac6a4de6497d914bc0722734f61

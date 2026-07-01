@@ -1,5 +1,5 @@
 ---
-description: Use when creating a single .instructions.md file from a set of source files.
+description: Create a single .instructions.md file from a set of source files.
 ---
 
 1. Ask the user to provide one or more files if none are selected or passed.

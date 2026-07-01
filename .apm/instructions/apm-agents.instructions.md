@@ -1,6 +1,6 @@
 ---
 name: apm-agents
-description: Describes how to write Agents for the Agent Package Manager (APM).
+description: Rules for writing Agents for the Agent Package Manager (APM).
 applyTo: ".apm/agents/*.agent.md"
 ---
 

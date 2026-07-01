@@ -1,5 +1,5 @@
 ---
-description: Use when creating a new skill from a documentation and code samples
+description: Create a new skill from documentation and/or code samples
 ---
 
 1. If the user provides URLs assume they are documentation.

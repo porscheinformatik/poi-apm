@@ -1,6 +1,6 @@
 ---
 name: apm-instructions
-description: Describes how to write Instructions for the Agent Package Manager (APM).
+description: Rules for writing Instructions for the Agent Package Manager (APM).
 applyTo: ".apm/instructions/*.instructions.md"
 ---
 
