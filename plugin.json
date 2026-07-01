@@ -1,0 +1,9 @@
+{
+  "name": "Porsche Informatik Agents",
+  "version": "1.0.0",
+  "description": "Public APM package",
+  "author": {
+    "name": "Porsche Informatik"
+  },
+  "license": "MIT"
+}

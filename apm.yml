@@ -1,0 +1,17 @@
+name: Porsche Informatik Agents
+version: 1.0.0
+description: Public APM package
+author: Porsche Informatik
+license: MIT
+targets:
+  - copilot
+  - claude
+  - codex
+  - gemini
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+devDependencies:
+  apm: []
+scripts: {}
