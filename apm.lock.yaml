@@ -34,6 +34,6 @@ local_deployed_file_hashes:
   .github/prompts/create-apm-instructions.prompt.md: sha256:8649b7b5afaf08634b68d9e05a2be38dfe1d85e4c8cb0a02c01920cb75d9310b
   .github/prompts/create-apm-prompt.prompt.md: sha256:1662083cc807b79cc8e9b2c46ba28d776ed348d5bdb93efd9af1edc06555e42f
   .github/prompts/create-apm-skill.prompt.md: sha256:59439c0fbb2a06b889ee029e6e9d0e4396da9699fcc9bd2153f337a91cac3e59
-  .github/prompts/create-apm-summary.prompt.md: sha256:c2e594cdfe15b16cb5cf1bb1a1db09ce2e284bf1141bbcb60724957467e12132
+  .github/prompts/create-apm-summary.prompt.md: sha256:597647f554fa8fb412206592e76b1f81a9c01b27c4524cbfcf124f3167c8183b
   .github/prompts/improve-apm.prompt.md: sha256:bcfd2551a9edf95b0f629d731b0e3e28c8006093fcbaaabeee76c2362c470faa
   .github/prompts/review-apm.prompt.md: sha256:13ed421e557cbfc3f4ab7842d59d5e99771c3ac6a4de6497d914bc0722734f61
