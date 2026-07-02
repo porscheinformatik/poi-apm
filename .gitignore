@@ -1,21 +1,6 @@
 
 # APM targets
-/AGENTS.md
-/CLAUDE.md
-/GEMINI.md
-/.agents/
 /build/
-/.claude/
-/.claude-plugin/
-/.codex/
-/.gemini/
-/.github/instructions
-/.github/plugin
-/.github/prompts
-/.kiro/
-
-/.apm/AGENTS.md
-/.apm/CLAUDE.md
 
 # APM dependencies
 apm_modules/
