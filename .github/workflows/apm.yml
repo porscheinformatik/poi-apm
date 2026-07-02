@@ -1,0 +1,23 @@
+name: APM
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install APM packages
+        uses: microsoft/apm-action@v1
+        with:
+          compile: true  # Required: project targets Codex and Gemini
+
+      - name: Audit + drift check
+        run: |
+          apm compile
+          apm install --target copilot,claude,codex,gemini
+          apm audit --ci

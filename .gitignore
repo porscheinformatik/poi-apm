@@ -9,7 +9,9 @@
 /.claude-plugin/
 /.codex/
 /.gemini/
-/.github/
+/.github/instructions
+/.github/plugin
+/.github/prompts
 /.kiro/
 
 /.apm/AGENTS.md
