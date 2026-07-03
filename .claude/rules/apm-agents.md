@@ -24,7 +24,7 @@ Use this file when authoring APM agent files.
 
 Description guidance:
 
-- Start with an imperative trigger such as Use when or Apply when.
+- A short, user-facing description of the agent's role.
 - Lead with user intent and trigger conditions.
 - Keep the description concise and specific.
 

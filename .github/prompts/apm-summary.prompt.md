@@ -36,15 +36,16 @@ description: Create or update an APM summary document from .apm contents.
     - Instructions: bullets for **Filename:** and **Apply To:**, then one plain paragraph.
     - Prompts: bullets for **Filename:** and **Command:** (/ plus the command name). Add **Inputs:** only when frontmatter inputs exist. Then add one short plain paragraph combining frontmatter description with key body steps.
     - Skills: bullets for **Filename:** and **When:**, then two plain paragraphs: description first, key body summary second.
-16. Insert one blank line between bullet metadata and paragraph text.
-17. Write user-facing descriptions such as: "This instruction is used to...", "This prompt creates...", or "This skill is used when...".
-18. Keep bullet labels bold and ending with a colon.
-19. In Dependencies entries, use **Dependency:** instead of **Filename:**.
-20. Sort dependency entries alphabetically by dependency name.
-21. Keep output concise, imperative, deterministic, and structurally valid.
-22. Keep existing content in APM_SUMMARY.md unless it is outdated or incorrect. Update only what is necessary.
-23. Keep any additional item information already present in APM_SUMMARY.md (for example, install notes).
-24. Before finalizing, run a completeness gate: if apm.yml has dependencies, the Dependencies section must include an entry for each declared dependency and must include imported dependency items. If any are missing, rescan dependency sources and regenerate.
-25. Report what changed and why, then suggest optional concision improvements.
-26. Verify every item includes a headline.
-27. Verify that there are no duplicate items.
+16. In every **Filename:** field, include the relative path from the repository root (for example, `.apm/prompts/apm-skill.prompt.md`), not only the basename.
+17. Insert one blank line between bullet metadata and paragraph text.
+18. Write user-facing descriptions such as: "This instruction is used to...", "This prompt creates...", or "This skill is used when...".
+19. Keep bullet labels bold and ending with a colon.
+20. In Dependencies entries, use **Dependency:** instead of **Filename:**.
+21. Sort dependency entries alphabetically by dependency name.
+22. Keep output concise, imperative, deterministic, and structurally valid.
+23. Keep existing content in APM_SUMMARY.md unless it is outdated or incorrect. Update only what is necessary.
+24. Keep any additional item information already present in APM_SUMMARY.md (for example, install notes).
+25. Before finalizing, run a completeness gate: if apm.yml has dependencies, the Dependencies section must include an entry for each declared dependency and must include imported dependency items. If any are missing, rescan dependency sources and regenerate.
+26. Report what changed and why, then suggest optional concision improvements.
+27. Verify every item includes a headline.
+28. Verify that there are no duplicate items.

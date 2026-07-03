@@ -8,72 +8,79 @@ No agent files were found in .apm/agents.
 
 ### APM Agents Instructions
 
-- **Filename:** apm-agents.instructions.md
+- **Filename:** .apm/instructions/apm-agents.instructions.md
 - **Apply To:** .apm/agents/\*.agent.md
 
-This instruction is used to define how APM agent files are authored, scoped, and validated so agent personas stay concise, role-focused, and portable across targets.
+This instruction is used to define how APM agent files are authored, scoped, and validated so personas stay concise, role-focused, and portable across targets.
 
 ### APM Instructions Instructions
 
-- **Filename:** apm-instructions.instructions.md
+- **Filename:** .apm/instructions/apm-instructions.instructions.md
 - **Apply To:** .apm/instructions/\*.instructions.md
 
-This instruction is used to define always-on policy file conventions, including required frontmatter, applyTo usage, topic scoping, and deterministic validation for instruction rules.
+This instruction is used to define always-on instruction policy, including required frontmatter, applyTo behavior, topic scoping, and validation expectations.
 
 ### APM Prompts Instructions
 
-- **Filename:** apm-prompts.instructions.md
-- **Apply To:** .apm/prompts/\*.prompts.md
+- **Filename:** .apm/instructions/apm-prompts.instructions.md
+- **Apply To:** .apm/prompts/\*.prompt.md
 
-This instruction is used to standardize APM prompt authoring by enforcing one intent per file, preserved frontmatter keys, deterministic body flow, and command-oriented portability across supported targets.
+This instruction is used to standardize APM prompt authoring with one intent per file, preserved frontmatter keys, deterministic body flow, and concise action-oriented descriptions.
 
 ### APM Skills Instructions
 
-- **Filename:** apm-skills.instructions.md
+- **Filename:** .apm/instructions/apm-skills.instructions.md
 - **Apply To:** .apm/skills/\*\*/SKILL.md
 
-This instruction is used to define APM skill structure, naming, frontmatter, and concise operational content so runtime skill matching remains reliable and cross-target deployment stays valid.
+This instruction is used to define APM skill structure, naming, frontmatter, and concise operational content so runtime matching and cross-target deployment stay reliable.
 
 ## Prompts
 
+### APM Agent Prompt
+
+- **Filename:** .apm/prompts/apm-agent.prompt.md
+- **Command:** /apm-agent
+
+This prompt creates or updates an APM agent from requirements by enforcing agent path and suffix rules, applying agent frontmatter and body conventions, and validating OpenCode compatibility for tools and color fields.
+
 ### APM Instructions Prompt
 
-- **Filename:** apm-instructions.prompt.md
+- **Filename:** .apm/prompts/apm-instructions.prompt.md
 - **Command:** /apm-instructions
 
-This prompt creates or updates one instructions file from selected sources by confirming one domain and one wildcard scope, extracting only shared rules, and validating the result against instruction conventions.
+This prompt creates or updates a single instructions file from selected sources by enforcing one-domain scope, extracting only shared rules, requiring description wording conventions, and validating structure.
 
 ### APM Prompt Prompt
 
-- **Filename:** apm-prompt.prompt.md
+- **Filename:** .apm/prompts/apm-prompt.prompt.md
 - **Command:** /apm-prompt
 
-This prompt creates or updates a target prompt under .apm/prompts with valid naming, loads APM authoring guidance before edits, and enforces short deterministic structure with preserved frontmatter keys.
+This prompt creates or updates a target prompt under .apm/prompts with valid naming, preserved frontmatter keys, and short deterministic steps, including a short action-oriented description.
 
 ### APM Skill Prompt
 
-- **Filename:** apm-skill.prompt.md
+- **Filename:** .apm/prompts/apm-skill.prompt.md
 - **Command:** /apm-skill
 
-This prompt creates or updates a skill from documentation URLs or local code samples, avoids duplicate instructions when extending existing skills, and checks the output against skill instruction rules.
+This prompt creates or updates a skill from documentation URLs or local code samples, avoids duplicate guidance when extending skills, and enforces trigger wording in skill descriptions.
 
 ### APM Summary Prompt
 
-- **Filename:** apm-summary.prompt.md
+- **Filename:** .apm/prompts/apm-summary.prompt.md
 - **Command:** /apm-summary
 
 This prompt creates or updates APM_SUMMARY.md by scanning in-scope .apm sources and dependencies, applying strict section formatting and sorting rules, and running a completeness gate before finalizing.
 
 ### Improve APM Prompt
 
-- **Filename:** improve-apm.prompt.md
+- **Filename:** .apm/prompts/improve-apm.prompt.md
 - **Command:** /improve-apm
 
 This prompt improves selected .apm files by loading matching authoring rules, fixing layout and filename mismatches first, tightening wording into short imperative guidance, and reporting concrete fixes with optional refinements.
 
 ### Review APM Prompt
 
-- **Filename:** review-apm.prompt.md
+- **Filename:** .apm/prompts/review-apm.prompt.md
 - **Command:** /review-apm
 
 This prompt reviews a selected .apm file for structure, validity, and cross-target portability by applying type-specific rules, flagging actionable fixes, and summarizing findings by severity.

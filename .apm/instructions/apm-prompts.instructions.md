@@ -23,7 +23,7 @@ Use this file when authoring APM prompt files.
 
 Only these keys are preserved across targets:
 
-- description: one-line summary used in pickers.
+- description: one-line summary used in pickers - short, user-facing, and action-oriented (it should describe a doing)
 - input: list of parameters.
 - allowed-tools: optional tool allow-list.
 - model: optional model preference.

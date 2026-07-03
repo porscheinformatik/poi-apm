@@ -25,7 +25,7 @@ Use this file when authoring APM instruction files.
 
 Description guidance:
 
-- Start with an imperative trigger such as Use when or Apply when.
+- Usually starts with "Rules for" or "Guidelines for" a specific set of files.
 - Lead with user intent and trigger conditions.
 - Keep the description concise and specific.
 
