@@ -47,3 +47,4 @@ description: Create or update an APM summary document from .apm contents.
 24. Before finalizing, run a completeness gate: if apm.yml has dependencies, the Dependencies section must include an entry for each declared dependency and must include imported dependency items. If any are missing, rescan dependency sources and regenerate.
 25. Report what changed and why, then suggest optional concision improvements.
 26. Verify every item includes a headline.
+27. Verify that there are no duplicate items.
