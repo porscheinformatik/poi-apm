@@ -12,7 +12,7 @@ apm install porscheinformatik/poi-apm
 
 ## Contents
 
-Have a look at the [APM Summary](APM_SUMMARY.md) for an overview of the contents (generated with `/create-apm-summary`).
+Have a look at the [APM Summary](APM_SUMMARY.md) for an overview of the contents (generated with `/apm-summary`).
 
 ## Learn More
 

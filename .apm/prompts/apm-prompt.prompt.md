@@ -2,7 +2,7 @@
 description: Create or update a prompt based on an existing chat.
 ---
 
-1. If no target prompt file is selected or provided, ask for one.
+1. If no target prompt file is selected or provided, ask where the target prompt file is.
 2. Require the target to live in `.apm/prompts/` and end with `.prompt.md`; if not, explain the mismatch and fix the path or name.
 3. Load the `author-apm` skill and the prompt instruction file for prompt conventions before editing.
 4. If the target prompt exists, improve it in place; otherwise create it in `.apm/prompts/` with the `.prompt.md` suffix.

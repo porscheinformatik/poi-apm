@@ -36,47 +36,47 @@ This instruction is used to define APM skill structure, naming, frontmatter, and
 
 ## Prompts
 
-### Create APM Instructions Prompt
+### APM Instructions Prompt
 
-- **Filename:** create-apm-instructions.prompt.md
-- **Command:** /create-apm-instructions
+- **Filename:** apm-instructions.prompt.md
+- **Command:** /apm-instructions
 
-This prompt creates one new `.instructions.md` file from a selected set of source files by enforcing one domain and one wildcard pattern, extracting only shared rules, and validating the output against instruction conventions before summarizing inclusions and exclusions.
+This prompt creates or updates one instructions file from selected sources by confirming one domain and one wildcard scope, extracting only shared rules, and validating the result against instruction conventions.
 
-### Create APM Prompt Prompt
+### APM Prompt Prompt
 
-- **Filename:** create-apm-prompt.prompt.md
-- **Command:** /create-apm-prompt
+- **Filename:** apm-prompt.prompt.md
+- **Command:** /apm-prompt
 
-This prompt creates or updates a target prompt in `.apm/prompts/` with a valid `.prompt.md` name, loads required APM guidance first, keeps one deterministic intent, and fixes unsupported structure before reporting changes.
+This prompt creates or updates a target prompt under .apm/prompts with valid naming, loads APM authoring guidance before edits, and enforces short deterministic structure with preserved frontmatter keys.
 
-### Create APM Skill Prompt
+### APM Skill Prompt
 
-- **Filename:** create-apm-skill.prompt.md
-- **Command:** /create-apm-skill
+- **Filename:** apm-skill.prompt.md
+- **Command:** /apm-skill
 
-This prompt creates a new skill from documentation URLs or local code samples, avoids duplicating instructions when extending existing skills, and produces concise skill content aligned to APM skill conventions.
+This prompt creates or updates a skill from documentation URLs or local code samples, avoids duplicate instructions when extending existing skills, and checks the output against skill instruction rules.
 
-### Create APM Summary Prompt
+### APM Summary Prompt
 
-- **Filename:** create-apm-summary.prompt.md
-- **Command:** /create-apm-summary
+- **Filename:** apm-summary.prompt.md
+- **Command:** /apm-summary
 
-This prompt creates or refreshes `APM_SUMMARY.md` from `.apm` sources, enforces fixed section structure and strict item formatting, and summarizes what changed with optional concision recommendations.
+This prompt creates or updates APM_SUMMARY.md by scanning in-scope .apm sources and dependencies, applying strict section formatting and sorting rules, and running a completeness gate before finalizing.
 
 ### Improve APM Prompt
 
 - **Filename:** improve-apm.prompt.md
 - **Command:** /improve-apm
 
-This prompt improves selected `.apm` files by loading the matching rule set, correcting layout and filename mismatches first, tightening verbose wording into short imperative guidance, and reporting concrete fixes plus optional refinements.
+This prompt improves selected .apm files by loading matching authoring rules, fixing layout and filename mismatches first, tightening wording into short imperative guidance, and reporting concrete fixes with optional refinements.
 
 ### Review APM Prompt
 
 - **Filename:** review-apm.prompt.md
 - **Command:** /review-apm
 
-This prompt reviews a selected `.apm` file for structure, validity, and portability by applying type-specific rules, flagging precise issues with actionable replacements, and summarizing findings by severity.
+This prompt reviews a selected .apm file for structure, validity, and cross-target portability by applying type-specific rules, flagging actionable fixes, and summarizing findings by severity.
 
 ## Skills
 
@@ -88,3 +88,7 @@ This prompt reviews a selected `.apm` file for structure, validity, and portabil
 This skill is used when writing or reviewing APM primitives so content stays short, explicit, target-agnostic, and correctly mapped to skills, prompts, instructions, agents, hooks, commands, and MCP servers.
 
 It defines expected `.apm/` layout, authoring constraints, update and validation loops (`apm compile`, `apm install`, `apm audit`), and a practical checklist to prevent structure drift and non-portable references.
+
+## Dependencies
+
+No dependencies are declared in apm.yml.
