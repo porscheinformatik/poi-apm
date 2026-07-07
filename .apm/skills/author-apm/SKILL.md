@@ -1,78 +1,110 @@
 ---
 name: author-apm
-description: Use when authoring or reviewing an APM package so the `.apm/` layout, primitive choice, and skill content stay concise, valid, and portable across targets.
+description: Use when creating, modifying, reviewing, or optimizing an APM package so the model picks the right primitive, writes it in the correct `.apm/` location, and validates what consumers will receive.
 ---
 
-Use this skill to write or review APM content for model consumption, not as long-form product documentation.
+Use this skill to author source primitives under `.apm/` and `apm.yml`, not long-form docs or generated output.
 
-## Core model
+## Source of truth
 
-- Treat `.apm/` as the source of truth for reusable agent context.
-- Write once, then let APM project the content to supported targets.
-- Prefer short, explicit instructions over explanatory prose.
-- Avoid links that only work inside the source tree; installed skills may live in a different path.
+- Treat `.apm/` as the only editable source for primitives.
+- Treat generated files such as `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.github/instructions/`, `.claude/rules/`, and `.agents/skills/` as inspection surfaces. Read them to verify output, then fix the owning `.apm/` source.
+- If the request starts from a generated file, identify the owning primitive first, then edit the source primitive instead of hand-editing compiled output.
+- Reference related primitives by name plus type hint, not by `.apm/...` path. This keeps the content portable across targets.
+- Prefer short, operational instructions over narrative explanation.
 
-## Primitive map
+## Choose the primitive
 
-- Skills: capability bundles with `SKILL.md` and optional `scripts/`, `references/`, `assets/`, or `examples/`.
-- Prompts: reusable prompt templates with frontmatter.
-- Instructions: long-lived behavior rules and conventions.
-- Agents: personas with scoped responsibilities, tools, and triggers.
-- Hooks: runtime event handlers such as pre-commit or tool-use hooks.
-- Commands: prompt-based shortcuts authored under `.apm/prompts/`; there is no separate `.apm/commands/` directory.
-- MCP servers: server declarations that consumers can wire into their harness.
+- Use a skill for reusable task guidance the runtime should discover from its description during a conversation.
+- Use a prompt for an explicit, single-purpose command the user invokes on demand.
+- Use an instruction for always-on policy that should attach to matching files through `applyTo`.
+- Use an agent for an explicitly invoked persona with scoped responsibilities, model choice, or tool limits.
+- Use a hook for runtime events such as pre-commit or tool-use interception.
+- Use an MCP primitive when the package needs to declare a tool server consumers can wire into their harness.
+- Commands are authored as prompts under `.apm/prompts/`; there is no `.apm/commands/` directory.
+- If one request mixes policy and persona, split it into separate primitives instead of forcing both into one file.
+- If a persona must reach Windsurf, Kiro, or Gemini, prefer a skill. Those targets do not deploy `.agent.md` files.
+- If Codex coverage matters for an on-demand workflow, do not rely on a prompt alone. Pair it with a skill because Codex has no prompts primitive.
 
-## Expected layout
+## Create in the right place
+
+Use these canonical source paths when a file does not exist yet:
 
 ```text
 .apm/
   skills/
-    my-skill/
+    <skill-name>/
       SKILL.md
-      scripts/
       references/
+      scripts/
       assets/
+      examples/
   prompts/
-    review.prompt.md
+    <prompt-name>.prompt.md
   instructions/
-    style.instructions.md
+    <instruction-name>.instructions.md
   agents/
-    cli-logging-expert.agent.md
+    <agent-name>.agent.md
   hooks/
-    pre-commit.json
+    <hook-name>.json
+  mcp/
+    <server-name>.mcp.json
 ```
 
-## Skill authoring rules
+- Create the directory first for skills; every other primitive is a file in its type directory.
+- Skill names must match the parent directory and use lowercase letters, numbers, and hyphens only.
+- Prompt filenames define the command name on every target. Keep one workflow per file.
+- Instruction filenames end in `.instructions.md`; the basename becomes the deployed rule stem.
+- Agent filenames end in `.agent.md`. Do not name an agent `default` or `start`.
+- Root-level prompt files are only backward-compatible legacy discovery; prefer `.apm/prompts/`.
 
-- Start frontmatter descriptions with the user intent, for example `Use when ...`.
-- Keep `SKILL.md` focused on decisions, constraints, and execution steps the model should follow.
-- Move deep reference material into `references/` and explicitly tell the model when to load it.
-- Keep examples minimal and local to the rule they support.
-- Do not assume relative documentation links will resolve after installation.
+## Authoring contract
 
-## Update loop
+- Read the matching authoring rule before editing a primitive source:
+  - `apm-skills` instruction for `.apm/skills/**/SKILL.md`
+  - `apm-prompts` instruction for `.apm/prompts/*.prompt.md`
+  - `apm-instructions` instruction for `.apm/instructions/*.instructions.md`
+  - `apm-agents` instruction for `.apm/agents/*.agent.md`
+- Keep one primary purpose per primitive. Split mixed concerns.
+- Keep bodies concise enough for model context. Move long-tail material into `references/` and load it with `LOAD references/<file>`.
+- Use source-relative Markdown links only when the target file already exists inside the package. APM rewrites eligible links for prompts, instructions, agents, and commands at install time.
+- Links inside a single skill bundle usually do not need rewriting because the whole skill directory is copied as-is.
 
-- When editing instructions, use `apm compile --validate` for the fastest structure check.
-- Use `apm compile --dry-run` to preview which files and targets would be written before changing disk.
-- Use `apm compile --watch` only for fast instruction-authoring iteration.
-- `apm compile` handles instructions output; it does not redeploy skills, prompts, agents, hooks, commands, or MCP servers.
-- After changing non-instruction primitives, run `apm install` so the target harness directories are refreshed.
-- If you are previewing a script that wraps a `.prompt.md` file, use `apm preview` rather than `apm compile`.
+## Minimum frontmatter by primitive
+
+- Skill: `name`, `description`. `name` must match the directory; `description` should start with `Use when` or `Apply when` and lead with user intent.
+- Prompt: `description`; optionally `input`, `allowed-tools`, `model`, `argument-hint`. Only these preserved keys should be treated as authoritative.
+- Instruction: `description` and usually `applyTo`. Missing `applyTo` makes the rule unconditional and folds it into compiled root context files.
+- Agent: `description` required; `name` recommended; `model`, `tools`, `color`, and `handoffs` optional. `tools` must stay a boolean mapping for OpenCode portability.
+
+## Edit and optimize workflow
+
+- Start from the source primitive, not from deployed output.
+- When optimizing an existing package, inspect generated `AGENTS.md`, `CLAUDE.md`, or deployed target files to detect duplication, dropped scoping, missing reach, or portability regressions.
+- Use generated output to answer questions like:
+  - Did an instruction stay scoped, or did missing `applyTo` fold it into root context?
+  - Did a target receive nothing because the primitive type does not deploy there?
+  - Did the installed wording stay concise after compilation and target transforms?
+- When the generated output is wrong, change the source primitive and re-run the narrow validation loop.
 
 ## Validation loop
 
-- Run `apm compile --validate` after editing a primitive's frontmatter or structure.
-- Run `apm compile --dry-run --target <target>` when you need to confirm target selection or output placement.
-- Run `apm audit` before publishing or after hand-editing generated files; it checks for hidden Unicode and drift from deployed output.
-- Use `apm audit --file <path>` to scan a single file.
-- Use `apm audit --strip --dry-run` before removing flagged hidden characters.
+- For instruction edits, run `./apm.sh compile --validate` first in this repo. It is the quickest local sanity check.
+- Then run `apm compile --dry-run --target <target>` to confirm target selection, deduplication, or output placement.
+- Use `apm compile --watch` only for tight instruction-authoring iteration.
+- Remember that `apm compile` only handles instructions and root-context generation. It does not redeploy skills, prompts, agents, hooks, or MCP primitives.
+- For skills, prompts, agents, hooks, and MCP changes, run `apm install --dry-run --target <target>` to preview routing, then `apm install --target <target>` if you need to inspect deployed bytes.
+- If a prompt is wired through `scripts:` in `apm.yml`, use `apm preview <script>` to inspect the rewritten command line.
+- After hand edits, run `apm audit --file <path>` on the changed primitive. Before publishing, run `apm audit` for hidden-Unicode and drift checks.
+- Use `apm view <package>` and `apm outdated` when validating the package, not just one primitive.
+
+> **Tip:** When authoring primitives that need to ask questions to collect required values or clarifications, use the `askQuestions` MCP to ensure structured, permission-based question collection.
 
 ## Review checklist
 
-- The primitive is in the correct `.apm/` subdirectory.
-- Frontmatter names the primitive and describes when it should be used.
-- The body is short enough to fit comfortably in model context.
-- File and folder names match the primitive type's expected layout.
-- The content is target-agnostic and does not depend on source-repo-relative links.
-- The authoring instructions distinguish `apm compile` from `apm install`.
-- The file includes a minimal local validation path before packing or publishing.
+- The primitive type matches the user intent.
+- The file lives in the correct `.apm/` location and follows the correct naming suffix.
+- Required frontmatter is present and portable for the intended targets.
+- The body is concise, operational, and split from unrelated concerns.
+- Generated files were used for verification only, not as the edited source.
+- The chosen validation command matches the primitive type: `compile` for instructions, `install` for deployable primitives, `preview` for script-wrapped prompts, `audit` before shipping.

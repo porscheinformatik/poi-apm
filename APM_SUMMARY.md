@@ -71,13 +71,6 @@ This prompt creates or updates a skill from documentation URLs or local code sam
 
 This prompt creates or updates APM_SUMMARY.md by scanning in-scope .apm sources and dependencies, applying strict section formatting and sorting rules, and running a completeness gate before finalizing.
 
-### Improve APM Prompt
-
-- **Filename:** .apm/prompts/improve-apm.prompt.md
-- **Command:** /improve-apm
-
-This prompt improves selected .apm files by loading matching authoring rules, fixing layout and filename mismatches first, tightening wording into short imperative guidance, and reporting concrete fixes with optional refinements.
-
 ### Review APM Prompt
 
 - **Filename:** .apm/prompts/review-apm.prompt.md
