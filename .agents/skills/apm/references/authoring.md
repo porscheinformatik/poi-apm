@@ -1,9 +1,8 @@
----
-name: author-apm
-description: Use when creating, modifying, reviewing, or optimizing an APM package so the model picks the right primitive, writes it in the correct `.apm/` location, and validates what consumers will receive.
----
+# Authoring APM Primitives
 
-Use this skill to author source primitives under `.apm/` and `apm.yml`, not long-form docs or generated output.
+Use this section when creating, modifying, reviewing, or optimizing APM packages so the model picks the right primitive, writes it in the correct `.apm/` location, and validates what consumers will receive.
+
+Use this guidance to author source primitives under `.apm/` and `apm.yml`, not long-form docs or generated output.
 
 ## Source of truth
 
@@ -13,20 +12,23 @@ Use this skill to author source primitives under `.apm/` and `apm.yml`, not long
 - Reference related primitives by name plus type hint, not by `.apm/...` path. This keeps the content portable across targets.
 - Prefer short, operational instructions over narrative explanation.
 
-## Choose the primitive
+## Choose the primitive type
 
-- Use a skill for reusable task guidance the runtime should discover from its description during a conversation.
-- Use a prompt for an explicit, single-purpose command the user invokes on demand.
-- Use an instruction for always-on policy that should attach to matching files through `applyTo`.
-- Use an agent for an explicitly invoked persona with scoped responsibilities, model choice, or tool limits.
-- Use a hook for runtime events such as pre-commit or tool-use interception.
-- Use an MCP primitive when the package needs to declare a tool server consumers can wire into their harness.
+- **Skill**: Use for reusable task guidance the runtime should discover from its description during a conversation.
+- **Prompt**: Use for an explicit, single-purpose command the user invokes on demand.
+- **Instruction**: Use for always-on policy that should attach to matching files through `applyTo`.
+- **Agent**: Use for an explicitly invoked persona with scoped responsibilities, model choice, or tool limits.
+- **Hook**: Use for runtime events such as pre-commit or tool-use interception.
+- **MCP primitive**: Use when the package needs to declare a tool server consumers can wire into their harness.
+
+### Primitive selection rules
+
 - Commands are authored as prompts under `.apm/prompts/`; there is no `.apm/commands/` directory.
 - If one request mixes policy and persona, split it into separate primitives instead of forcing both into one file.
 - If a persona must reach Windsurf, Kiro, or Gemini, prefer a skill. Those targets do not deploy `.agent.md` files.
 - If Codex coverage matters for an on-demand workflow, do not rely on a prompt alone. Pair it with a skill because Codex has no prompts primitive.
 
-## Create in the right place
+## Create in the right location
 
 Use these canonical source paths when a file does not exist yet:
 
@@ -72,10 +74,10 @@ Use these canonical source paths when a file does not exist yet:
 
 ## Minimum frontmatter by primitive
 
-- Skill: `name`, `description`. `name` must match the directory; `description` should start with `Use when` or `Apply when` and lead with user intent.
-- Prompt: `description`; optionally `input`, `allowed-tools`, `model`, `argument-hint`. Only these preserved keys should be treated as authoritative.
-- Instruction: `description` and usually `applyTo`. Missing `applyTo` makes the rule unconditional and folds it into compiled root context files.
-- Agent: `description` required; `name` recommended; `model`, `tools`, `color`, and `handoffs` optional. `tools` must stay a boolean mapping for OpenCode portability.
+- **Skill**: `name`, `description`. `name` must match the directory; `description` should start with `Use when` or `Apply when` and lead with user intent.
+- **Prompt**: `description`; optionally `input`, `allowed-tools`, `model`, `argument-hint`. Only these preserved keys should be treated as authoritative.
+- **Instruction**: `description` and usually `applyTo`. Missing `applyTo` makes the rule unconditional and folds it into compiled root context files.
+- **Agent**: `description` required; `name` recommended; `model`, `tools`, `color`, and `handoffs` optional. `tools` must stay a boolean mapping for OpenCode portability.
 
 ## Edit and optimize workflow
 
@@ -98,13 +100,15 @@ Use these canonical source paths when a file does not exist yet:
 - After hand edits, run `apm audit --file <path>` on the changed primitive. Before publishing, run `apm audit` for hidden-Unicode and drift checks.
 - Use `apm view <package>` and `apm outdated` when validating the package, not just one primitive.
 
-> **Tip:** When authoring primitives that need to ask questions to collect required values or clarifications, use the `askQuestions` MCP to ensure structured, permission-based question collection.
-
 ## Review checklist
 
-- The primitive type matches the user intent.
-- The file lives in the correct `.apm/` location and follows the correct naming suffix.
-- Required frontmatter is present and portable for the intended targets.
-- The body is concise, operational, and split from unrelated concerns.
-- Generated files were used for verification only, not as the edited source.
-- The chosen validation command matches the primitive type: `compile` for instructions, `install` for deployable primitives, `preview` for script-wrapped prompts, `audit` before shipping.
+- [ ] The primitive type matches the user intent.
+- [ ] The file lives in the correct `.apm/` location and follows the correct naming suffix.
+- [ ] Required frontmatter is present and portable for the intended targets.
+- [ ] The body is concise, operational, and split from unrelated concerns.
+- [ ] Generated files were used for verification only, not as the edited source.
+- [ ] The chosen validation command matches the primitive type: `compile` for instructions, `install` for deployable primitives, `preview` for script-wrapped prompts, `audit` before shipping.
+
+## Tip
+
+When authoring primitives that need to ask questions to collect required values or clarifications, use the `askQuestions` MCP to ensure structured, permission-based question collection.

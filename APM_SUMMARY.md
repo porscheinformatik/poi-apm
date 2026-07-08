@@ -91,14 +91,14 @@ This prompt reviews a selected `.apm` file for structure, validity, and cross-ta
 
 ## Skills
 
-### Author APM Skill
+### APM Skill
 
-- **Filename:** `.apm/skills/author-apm/SKILL.md`
-- **When:** Use when authoring or reviewing an APM package so the `.apm/` layout, primitive choice, and skill content stay concise, valid, and portable across targets.
+- **Filename:** `.apm/skills/apm/SKILL.md`
+- **When:** `Use when authoring APM primitives, managing APM installation and versions, or working with APM CLI commands like compile, audit, install, update, and self-update.`
 
-This skill is used when writing or reviewing APM primitives so content stays short, explicit, target-agnostic, and correctly mapped to skills, prompts, instructions, agents, hooks, commands, and MCP servers.
+This skill is used when authoring APM package primitives and manifests, and when managing APM CLI installation, updates, versioning, and operational command usage.
 
-It defines expected `.apm/` layout, authoring constraints, update and validation loops (`apm compile`, `apm install`, `apm audit`), and a practical checklist to prevent structure drift and non-portable references.
+It provides quick navigation to focused references for authoring guidance, installation and setup, and CLI operations through explicit `LOAD` links to supporting files under the skill directory.
 
 ## MCPs
 
