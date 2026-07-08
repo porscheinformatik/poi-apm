@@ -1,9 +1,21 @@
 
-# APM targets
+# APM dependencies
+/AGENTS.md
+/CLAUDE.md
+/.apm/CLAUDE.md
+/GEMINI.md
+/apm_modules/
+/.agents/
 /build/
+/.claude/
+/.codex/
+/.gemini/
+/.github/
+/.kiro/
+
 
 # APM dependencies
 apm_modules/
 
-# Common files
+# Common exclusions
 .DS_Store
