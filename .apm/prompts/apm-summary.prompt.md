@@ -22,16 +22,14 @@ description: Create or update an APM summary document from .apm contents.
 3. Load the author-apm skill and the apm-prompts instruction before editing.
 4. Determine scope from user input.
 5. If the user specifies a type, directory, or file, scan and update only matching local items. Leave other APM_SUMMARY.md content intact.
-6. If no scope is specified, scan all local APM source files: `.apm/agents/*.agent.md`, `.apm/instructions/*.instructions.md`, `.apm/prompts/*.prompt.md`, `.apm/skills/**/SKILL.md`, and `.apm/mcp/*.mcp.json`.
+6. If no scope is specified, scan all local APM source files: `.apm/agents/*.agent.md`, `.apm/instructions/*.instructions.md`, `.apm/prompts/*.prompt.md`, `.apm/skills/**/SKILL.md`, and the `apm.yml` for MCP definitions.
 7. Skip .apm/AGENTS.md and generated aggregate files.
 8. Read apm.yml and collect declared dependencies.
-9. Include every declared dependency in the summary:
-   - If `apm_modules/<dependency>/APM_SUMMARY.md` exists, use it as the source of truth.
-   - Otherwise, scan that dependency's .apm content directly.
+9. Include every declared dependency in the summary if `apm_modules/<dependency>/APM_SUMMARY.md` exists, use it as the source of truth.
 10. Build one complete internal todo list before writing. Include all in-scope local items and all dependency items. Do not omit any item.
 11. Write six sections: Agents, Instructions, Prompts, Skills, MCPs, Dependencies.
 12. Merge dependency items into their matching type sections (Agents, Instructions, Prompts, Skills, MCPs). Do not move dependency item descriptions into `Dependencies`.
-13. Use the `Dependencies` section only for package-level dependency declarations from `apm.yml` (`dependencies.apm` and `dependencies.mcp`).
+13. Use the `Dependencies` section only for package-level dependency declarations from `apm.yml` (no MCPs) and the dependencies of imported APM_SUMMARY.md files.
 14. Do not add nested scope groupings inside those sections.
 15. For each discovered item, add a headline from the full filename-derived name. Do not drop name parts. Example: `apm-skill.prompt.md` -> APM Skill Prompt.
 16. Sort items alphabetically by headline name within each category section.
@@ -40,7 +38,7 @@ description: Create or update an APM summary document from .apm contents.
     - Instructions: bullets for **Filename:** and **Apply To:**, then one plain paragraph.
     - Prompts: bullets for **Filename:** and **Command:** (`/<command-name>`). Add **Inputs:** only when frontmatter inputs exist. Then add one short plain paragraph combining frontmatter description with key body steps.
     - Skills: bullets for **Filename:** and **When:**, then two plain paragraphs: description first, key body summary second.
-    - MCPs: bullets for **Filename:** and **MCP:** (server name), then one plain paragraph describing purpose and usage scope.
+    - MCPs: bullets for **Name:**, **Transport:**, **Command:**, **Args:**, **URL:**, **Env:**, **Headers:**, **Tools:**, **Version:**, **Registry:**, **Package:**. Skip any optional fields that are not present.
 18. For dependency-origin items in Agents/Instructions/Prompts/Skills/MCPs, add a **Dependency:** bullet with the dependency name and keep the item in that same section.
 19. The only marker that an item comes from a dependency is the **Dependency:** bullet. Do not create separate dependency-only subsections for item descriptions.
 20. In every metadata value that is a technical identifier, use backticks. This includes `Filename`, `Command`, `Apply To`, `Dependency`, `MCP`, dependency names, and command names.
@@ -48,7 +46,7 @@ description: Create or update an APM summary document from .apm contents.
 22. Insert one blank line between bullet metadata and paragraph text.
 23. Write user-facing descriptions such as: "This instruction is used to...", "This prompt creates...", or "This skill is used when...".
 24. Keep bullet labels bold and ending with a colon.
-25. In `Dependencies`, include all declared package dependencies from `apm.yml` and all resolved dependency package names used for merged items.
+25. In `Dependencies`, include all declared package dependencies from `apm.yml` and all resolved dependency package names used for merged items, but no MCPs.
 26. Sort dependency entries alphabetically by dependency name.
 27. Keep output concise, imperative, deterministic, and structurally valid.
 28. Keep existing content in APM_SUMMARY.md unless it is outdated or incorrect. Update only what is necessary. Remove items that do not exist anymore.
