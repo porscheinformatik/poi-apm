@@ -89,12 +89,20 @@ This prompt optimizes `.apm` files for concision, validity, and portability by a
 
 This prompt reviews a selected `.apm` file for structure, validity, and cross-target portability by applying type-specific rules, flagging actionable fixes, and summarizing findings by severity.
 
+### Setup APM Prompt
+
+- **Filename:** `.apm/prompts/setup-apm.prompt.md`
+- **Command:** `/setup-apm`
+- **Inputs:** `operation`, `install_method`, `target_version`, `install_scope`, `verify_after_action`
+
+This prompt installs or repairs APM, verifies installation status, and updates APM to a requested version by validating inputs, selecting platform-safe install paths, and running post-action verification.
+
 ## Skills
 
 ### APM Skill
 
 - **Filename:** `.apm/skills/apm/SKILL.md`
-- **When:** `Use when authoring APM primitives, managing APM installation and versions, or working with APM CLI commands like compile, audit, install, update, and self-update.`
+- **When:** `Use when writing, modifying, reviewing, or optimizing APM primitives and package configuration under .apm/ and apm.yml.`
 
 This skill is used when authoring APM package primitives and manifests, and when managing APM CLI installation, updates, versioning, and operational command usage.
 

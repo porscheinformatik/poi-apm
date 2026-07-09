@@ -1,88 +1,20 @@
-# APM CLI Core Operations
+# APM CLI Core Operations (Retired Reference)
 
-Use this section when working with APM's main CLI commands: `compile`, `install`, `update`, `audit`, and `self-update`.
+This reference is intentionally retired to prevent overlap with setup workflows.
 
-## Quick navigation
+Current ownership split:
 
-- **Version management**: Check version, available updates
-- **Self-update**: Upgrade APM itself, manage channels and versions
-- **install**: Resolve and deploy dependencies, target selection, MCP servers
-- **update**: Refresh dependencies to latest versions
-- **compile**: Assemble context files, target-specific output, validation
-- **audit**: Security scanning, CI gate checks, policy validation
-- **Common workflows**: Full setup, CI pipelines, global installation, watch mode
+- setup-apm prompt: install/check/update/repair for the APM application itself
+- apm skill (authoring references): compile/install/audit/update flows used to author and validate package content
 
-## Version management
-
-### Check the current version
-
-```bash
-apm --version
-```
-
-### Check for available updates
-
-```bash
-apm self-update --check
-```
-
-## Self-update (upgrade APM itself)
-
-The `apm self-update` command upgrades the APM CLI binary to the latest version published on GitHub releases.
-
-### Install the latest version
-
-```bash
-apm self-update
-```
-
-### Override the install directory
-
-```bash
-apm config set self-update.install-dir ~/.local/bin
-apm self-update
-```
-
-Or via environment variable:
-
-```bash
-APM_INSTALL_DIR=$HOME/.local/bin apm self-update
-```
-
-### Use prerelease versions
-
-```bash
-apm config set self-update.channel prerelease
-apm self-update
-```
-
-Or temporarily:
-
-```bash
-APM_SELF_UPDATE_CHANNEL=prerelease apm self-update
-```
-
-### Rollback to a specific version
-
-```bash
-# macOS/Linux
-curl -sSL https://aka.ms/apm-unix | VERSION=v0.19.0 sh
-
-# Windows (PowerShell)
-$env:VERSION = "v0.19.0"; irm https://aka.ms/apm-windows | iex
-```
-
-### Enterprise mirrors for self-update
-
-Use the same mirror variables as installation:
-
-```bash
-export APM_RELEASE_METADATA_URL="https://mirror.example/apm-releases/latest.json"
+If the request is primarily about installing or upgrading the APM binary, route to setup-apm.
+If the request is about authoring primitives under .apm/ and validating package outputs, route to the apm skill.
 export APM_INSTALLER_BASE_URL="https://mirror.example/apm-install"
 export APM_RELEASE_BASE_URL="https://mirror.example/apm-releases"
 apm self-update --check
 apm self-update
-```
+
+````
 
 ## install (dependency management)
 
@@ -92,7 +24,7 @@ The `apm install` command resolves and deploys APM packages and MCP servers.
 
 ```bash
 apm install
-```
+````
 
 ### Add and install a specific package
 

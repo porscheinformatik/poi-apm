@@ -1,7 +1,7 @@
 ---
 name: apm-skills
 description: Rules for writing Skills for the Agent Package Manager (APM).
-applyTo: ".apm/skills/**/SKILL.md"
+applyTo: ".apm/skills/**/*"
 ---
 
 Use this file when authoring APM skill files.
