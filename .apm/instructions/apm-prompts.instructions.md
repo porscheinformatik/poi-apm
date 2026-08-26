@@ -1,7 +1,7 @@
 ---
 name: apm-prompts
 description: Rules for writing prompts for the Agent Package Manager (APM).
-applyTo: ".apm/prompts/*.prompt.md"
+applyTo: "**/.apm/prompts/*.prompt.md"
 ---
 
 Use this file when authoring APM prompt files.

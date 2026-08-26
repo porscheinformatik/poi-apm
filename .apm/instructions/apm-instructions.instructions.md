@@ -1,7 +1,7 @@
 ---
 name: apm-instructions
 description: Rules for writing Instructions for the Agent Package Manager (APM).
-applyTo: ".apm/instructions/*.instructions.md"
+applyTo: "**/.apm/instructions/*.instructions.md"
 ---
 
 ## What an instruction is

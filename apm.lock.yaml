@@ -18,6 +18,7 @@ local_deployed_files:
 - .claude/rules/apm-instructions.md
 - .claude/rules/apm-prompts.md
 - .claude/rules/apm-skills.md
+- .claude/rules/apm-yml.md
 - .claude/skills/apm
 - .claude/skills/apm/SKILL.md
 - .claude/skills/apm/references/authoring.md
@@ -34,6 +35,7 @@ local_deployed_files:
 - .github/instructions/apm-instructions.instructions.md
 - .github/instructions/apm-prompts.instructions.md
 - .github/instructions/apm-skills.instructions.md
+- .github/instructions/apm-yml.instructions.md
 - .github/prompts/apm-agent.prompt.md
 - .github/prompts/apm-instructions.prompt.md
 - .github/prompts/apm-prompt.prompt.md
@@ -54,10 +56,11 @@ local_deployed_file_hashes:
   .claude/commands/optimize-apm.md: sha256:4cbe91e71cd11b5ae4a2245535a8a9f7771df104ca712a14ad631a627efa19d4
   .claude/commands/review-apm.md: sha256:c54c9898093fc32e84056a41375d1a981c79d288db0248cfcd742d314efd7887
   .claude/commands/setup-apm.md: sha256:d9933660184fd58acc0bff1e69f5f8b4435d4ad94ca5a014fd9a15a52c853d2a
-  .claude/rules/apm-agents.md: sha256:ed4f8f5dbc3c3a5ae0e40c2edcb1b367b6a8a02f8fc1983beb91686ff2022d3e
-  .claude/rules/apm-instructions.md: sha256:dc025080398fe39f8d95e9d1708040babd3fe3c26692136ba71da79916b056d9
-  .claude/rules/apm-prompts.md: sha256:c92dda6a8b2763a206c3cf8a296223d754302c25961cf23e4820cedc59b0b0dc
-  .claude/rules/apm-skills.md: sha256:15409769bf9bdc2768aee8b2bb4775eff8163145863c8c202118781ea020b09e
+  .claude/rules/apm-agents.md: sha256:df1a197dc40247b706171e8334065c4ed710031467d068e03c0f9363eeb555a3
+  .claude/rules/apm-instructions.md: sha256:706ea45903cc0bee5cf40530c57e09982013170b6f6520522b78090c9c618e57
+  .claude/rules/apm-prompts.md: sha256:fe6005ed3a553c07ca7a15a470651a804688278a5104be48b6f15b30b30f50f1
+  .claude/rules/apm-skills.md: sha256:40bb77abef4091aecc727515b62296561dfa8bf6efbeb9dd32c6efce96b29639
+  .claude/rules/apm-yml.md: sha256:e205a9e45fd9f8da223272ebe01d830e954c6e5eebe975f0d2100c07e2a70505
   .claude/skills/apm/SKILL.md: sha256:e084c642f9130f2f6ebc347e6ec0d0e560d7bd72df8c86efc7af57b30175fd85
   .claude/skills/apm/references/authoring.md: sha256:3adb04bb12527daeb9ff570f10e2cb5f37b665250a03dadd129a7dffde34e341
   .claude/skills/apm/references/cli-operations.md: sha256:887def05b9c15d3eb228c41d31cadf4929068cfe59ac04cc4da915563d5c9bbb
@@ -69,10 +72,11 @@ local_deployed_file_hashes:
   .gemini/commands/optimize-apm.toml: sha256:5a837b03497a7c088e152e62be136d5b96a86ae852f12192918559fa38d50b29
   .gemini/commands/review-apm.toml: sha256:590146cfdb0348b52a18e591a58073c15da55d0d91039b15cc49763c3f70281d
   .gemini/commands/setup-apm.toml: sha256:a23b9deb651880d403b04e505648ba15255422062ad71b622c79cee9cb3b2611
-  .github/instructions/apm-agents.instructions.md: sha256:d37dffb6107ec0ef8f3a7c8a955784f34d8c7d557bf675d2db8e7ff7735a6547
-  .github/instructions/apm-instructions.instructions.md: sha256:58bb4eedc8fcfd7618d66f5f420b3cdc90ffe23dc65a5acd7a6a22fcda204d22
-  .github/instructions/apm-prompts.instructions.md: sha256:e688c7cd79a966f93ca94b5db5e92a9a49581f2c62cf6eae47da626316359b99
-  .github/instructions/apm-skills.instructions.md: sha256:8b1a532045220dda6fba9adc340313253d9f83d425089fd6ceb15ce8144c4425
+  .github/instructions/apm-agents.instructions.md: sha256:f919512d66f0ede1c6c6d1eb9c271644895f29ebe46ca6f62faf375837a0a423
+  .github/instructions/apm-instructions.instructions.md: sha256:b8fb40a65afeffb0f717c6554bda567aee881e8acaa2b08d854a7836b1268bbe
+  .github/instructions/apm-prompts.instructions.md: sha256:115b7bb09e6c62e6364dd955eac6e08ddfcfd9c4c57e831aaa7f51f4ff2f6184
+  .github/instructions/apm-skills.instructions.md: sha256:e4b69bd44e78edf178d24f86cbfdb9e589e68c328b9a9253c0f33d9ef99fc054
+  .github/instructions/apm-yml.instructions.md: sha256:85fe37120b2ae6779922afc08a4e645ec3b2731087678b3ef5a33f0f905a3183
   .github/prompts/apm-agent.prompt.md: sha256:ce1be94ca3cba8a7ea6fd6c8e3c763c59b9661b68fdbe38eea998be33bb26618
   .github/prompts/apm-instructions.prompt.md: sha256:e3e8cd199d67f68944f786cfada294a7d37071be3808cd7f03837ed5a8f051d0
   .github/prompts/apm-prompt.prompt.md: sha256:892974152f01174cc77f42ddc046d60bb0eb1f4e1ce1d0c909f8d8246e5d00fa
