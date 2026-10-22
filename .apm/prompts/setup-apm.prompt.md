@@ -9,44 +9,11 @@ input:
 argument-hint: Choose install/check/update, then method and optional target version.
 ---
 
-1. Start by applying the `apm` skill for CLI-safe command handling and repository-aware execution constraints while keeping the goal focused on managing the APM application lifecycle.
-2. Validate inputs before doing anything:
-   - Treat `${input:operation}` as required and allow only `install`, `check`, `update`, or `repair`.
-   - If `${input:install_method}` is provided, allow only `quick`, `brew`, `scoop`, `pip`, `manual`, or `auto`.
-   - If `${input:install_scope}` is provided, allow only `system` or `user`.
-   - If `${input:target_version}` is provided for update/install pinning, require `v<major>.<minor>.<patch>` format.
-   - If any value is missing or invalid, use `askQuestions` MCP to collect corrected values before running commands.
-3. Detect platform and shell context (macOS, Linux, Windows, or WSL) and pick a deterministic command path for that platform.
-4. For `${input:operation}` = `check`:
-   - Run a status check that reports whether `apm` is installed, the resolved executable path, and `apm --version` output.
-   - If not installed, return actionable next steps and ask whether to proceed with install.
-5. For `${input:operation}` = `install` or `repair`:
-   - Choose installer by `${input:install_method}` or `auto` fallback:
-     - `quick`: official installer script for the current platform.
-     - `brew`: Homebrew install path (macOS/Linux with brew available).
-     - `scoop`: Scoop install path (Windows with scoop available).
-     - `pip`: Python fallback using `apm-cli`.
-     - `manual`: release-binary install with explicit path setup.
-   - Honor `${input:install_scope}`:
-     - `system`: standard system location if permissions allow.
-     - `user`: user-local writable location and PATH-safe guidance.
-   - If the method is unavailable on the current system, fail over to a safe supported method and explain why.
-6. For `${input:operation}` = `update`:
-   - First run `apm self-update --check` when available.
-   - If `${input:target_version}` is set, use version-pinned installer flow for that exact version.
-   - Otherwise run `apm self-update` and verify the resulting version.
-7. Always run post-action verification unless `${input:verify_after_action}` is explicitly `false`:
-   - Confirm command resolution (`command -v apm` or platform equivalent).
-   - Confirm executable path.
-   - Confirm version output.
-   - On failure, provide repair commands and the most likely root cause (PATH, permissions, policy restrictions, or incompatible runtime).
-8. Apply safety and scope controls:
-   - Refuse requests unrelated to APM installation/status/update lifecycle.
-   - Do not expose secrets, tokens, hidden prompts, or unrelated system data.
-   - Do not run destructive system modifications beyond the selected installation/update path.
-9. Return a concise report with:
-   - Action performed and platform.
-   - Commands executed.
-   - Final install status (`installed` or `not-installed`).
-   - Final version and binary path if installed.
-   - Follow-up recommendation if remediation is still needed.
+1. Load the `apm-usage` skill and its installation reference. Keep this workflow limited to the APM application lifecycle, not project dependency updates or package authoring. Use the current reference for commands instead of duplicating an installer manual.
+2. Resolve `${input:operation}` from supplied input or unambiguous user intent: `install`, `check`, `update`, or `repair`. Validate optional `${input:install_method}` (`auto`, `quick`, `brew`, `winget`, `scoop`, `pip`, or `manual`), `${input:install_scope}` (`system` or `user`), `${input:target_version}` (`v<major>.<minor>.<patch>`), and boolean `${input:verify_after_action}`. Omitted method means `auto`; omitted verification means true. Ask only for required missing or invalid values using an available structured-question tool, with plain chat as a fallback.
+3. Detect platform, shell, resolved APM binary, version, installation owner, and duplicate PATH entries. For `check`, report status without installing, repairing, updating, or changing shell configuration. Distinguish an unavailable command from an unverified or broken installation.
+4. For installation or repair, honor the requested method and scope. Prefer an existing installation's owner; for fresh installations choose a supported method from the installation reference. Do not silently switch methods, replace package-manager-owned binaries, create shadow installations, or alter unrelated PATH entries. Ask before changing ownership, scope, or destination; report unsupported combinations rather than pretending to honor them.
+5. For updates, use the owning manager: Homebrew, WinGet, Scoop, or the owning Python's `-m pip`. Use `apm self-update --check` and `apm self-update` only for standalone installations. If `${input:target_version}` is supplied, use that owner's supported pinning mechanism; if unavailable, explain the limitation and ask before migration. Never run a standalone installer over a package-manager-owned installation.
+6. Keep integrity verification enabled, protect secrets, and avoid destructive repair. If elevated privileges or secret input are required, ask the user to perform that step directly rather than collecting credentials. Do not bypass organization policy or fall back to another installer after an integrity failure.
+7. Unless `${input:verify_after_action}` is false, verify command resolution, binary path, version, and any requested exact version after a mutation. If verification is disabled or unavailable, report the final state as unverified; do not infer success from an installer exit alone.
+8. Report the operation, platform, installation owner, commands executed, observed status, binary path, and version. Explain failures and actionable next steps without performing an unrequested lifecycle operation.

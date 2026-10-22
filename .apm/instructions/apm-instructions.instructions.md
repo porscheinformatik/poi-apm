@@ -6,8 +6,8 @@ applyTo: "**/.apm/instructions/*.instructions.md"
 
 ## What an instruction is
 
-- An instruction is always-on policy scoped by a file glob.
-- It shapes model behavior silently for matching files — no user invocation needed.
+- An instruction is persistent policy, scoped by a file glob when `applyTo` is present.
+- It shapes model behavior without explicit invocation; native file scoping depends on the receiving target.
 - Use instructions for long-lived standards; use agents for on-demand specialist personas.
 
 ## When to use instructions
@@ -28,9 +28,10 @@ Optional frontmatter:
 
 ## applyTo rules
 
-- Prefer a comma-separated string over a YAML list for identical output across all targets: `"**/*.ts, **/*.tsx"`.
-- YAML list form is accepted; only the first entry is used on targets that don't support multiple globs. Prefer comma-separated.
+- Use a comma-separated string such as `"**/*.ts, **/*.tsx"`, or a YAML sequence when it improves readability.
+- APM normalizes every non-null sequence entry into the same OR expression used for comma-separated patterns; do not discard later entries.
 - Commas inside brace expansion are part of the glob, not list separators: `**/*.{css,scss}`.
+- Escape a literal comma in a filename as `\,`; preserve the escape when encoding it in YAML.
 - Use `**` only for rules that genuinely apply to every file. Scope language-specific rules to the language: `**/*.py`, not `**`.
 
 ## Body conventions
@@ -49,6 +50,8 @@ Optional frontmatter:
 - Copilot: deployed as `.github/instructions/<name>.instructions.md`; `applyTo` preserved verbatim.
 - Claude/Cursor/Windsurf/Kiro/Antigravity: deployed as rule files with `applyTo` transformed to the target's native glob field.
 - Codex/Gemini/OpenCode: folded into compiled context files (`AGENTS.md`, `GEMINI.md`); no per-file rule deployed.
+- Grok Build: deployed as a native rule and folded into `AGENTS.md`.
+- Do not treat compiled scope descriptions as equivalent to harness-enforced file filtering. Check representative matching and nonmatching paths for the intended target.
 
 ## Unsupported features (conversion guidance)
 
@@ -62,12 +65,13 @@ Optional frontmatter:
 - Missing `applyTo` — the rule becomes unconditional and loses per-file scoping.
 - Using an instruction for persona-only behavior — use an agent instead.
 - Multiple unrelated topics in one file — split into separate instruction files.
-- Using a YAML list with multiple entries — prefer comma-separated string for cross-target consistency.
 - Referencing other APM primitives by `.apm/...` path — use name plus type hint (e.g. "the `python-style` instruction").
 - Overly broad `applyTo: "**"` on language-specific rules — scope to the relevant file types.
 
 ## Validation checklist
 
 - Run `apm compile --validate`.
+- Run `apm audit --file <instruction-path>`; compilation does not re-scan edited content for hidden Unicode.
+- Run `apm compile --dry-run --target <target>` to inspect placement and scoping before writing output.
 - Run `apm install --dry-run --target <target>`.
-- If wired via scripts, run `apm preview <script>`.
+- Regenerate deployed rules and compiled root context after changes; do not hand-edit generated copies.

@@ -99,14 +99,14 @@ This prompt installs or repairs APM, verifies installation status, and updates A
 
 ## Skills
 
-### APM Skill
+### APM Authoring Skill
 
-- **Filename:** `.apm/skills/apm/SKILL.md`
-- **When:** `Use when writing, modifying, reviewing, or optimizing APM primitives and package configuration under .apm/ and apm.yml.`
+- **Filename:** `.apm/skills/apm-authoring/SKILL.md`
+- **When:** `Use when creating, modifying, reviewing, or optimizing APM skills, prompts, instructions, agents, hooks, or producer-side package configuration. Focus on primitive selection, concise content, and cross-target authoring correctness.`
 
-This skill is used when authoring APM package primitives and manifests, and when managing APM CLI installation, updates, versioning, and operational command usage.
+This skill is used when authoring and reviewing APM primitives and producer-side package configuration.
 
-It provides quick navigation to focused references for authoring guidance, installation and setup, and CLI operations through explicit `LOAD` links to supporting files under the skill directory.
+It covers primitive selection, concise content, target-specific constraints, and validation of installed output. General CLI and consumer workflows are delegated to the `apm-usage` skill.
 
 ## MCPs
 

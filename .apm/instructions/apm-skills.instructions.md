@@ -4,8 +4,6 @@ description: Rules for writing Skills for the Agent Package Manager (APM).
 applyTo: "**/.apm/skills/**/*"
 ---
 
-Use this file when authoring APM skill files.
-
 ## What a skill is
 
 - A skill is runtime-invoked guidance selected from its description.
@@ -28,6 +26,7 @@ Use this file when authoring APM skill files.
 - name must stay within 1 to 64 characters for cross-runtime compatibility.
 - Avoid leading, trailing, or repeated hyphens.
 - description must be non-empty and stay within 1024 characters.
+- Treat these as authoring and agent-skills compatibility requirements, not proof of complete CLI validation. APM derives identity from the directory even when a declared name disagrees, and does not validate description wording for you.
 
 Description guidance:
 
@@ -68,6 +67,8 @@ Description guidance:
 - Move long narrative explanations into references/ and keep SKILL.md operational.
 - Convert ambiguous tool mentions into concrete tool names and expected outputs.
 - Keep target-specific runtime assumptions behind optional notes.
+- Use an available structured-question tool or plain chat for runtime decisions; do not assume a particular MCP tool is installed.
+- When copying or overriding a dependency skill, preserve the whole bundle and ask before introducing the override. Never copy only SKILL.md when it references sibling resources, and never edit the cached dependency.
 
 APM compatibility notes:
 
@@ -79,8 +80,10 @@ APM compatibility notes:
 
 - Claude deploys to .claude/skills/<name>/SKILL.md.
 - Kiro deploys to .kiro/skills/<name>/SKILL.md.
+- Grok Build deploys to `.grok/skills/<name>/SKILL.md`.
 - Copilot, Cursor, Codex, Gemini, OpenCode, and Windsurf deploy to .agents/skills/<name>/SKILL.md.
-- Skill directories are copied with bundled resources.
+- Skill directories are copied with bundled resources; symlinks and `.apm-pin` cache markers are filtered out. Use regular files for resources consumers need.
+- Renames must update the directory, metadata, callers, and deployed identity together; preserve unrelated or user-edited files when retiring old copies.
 
 ## Common mistakes
 
@@ -97,3 +100,5 @@ APM compatibility notes:
 - Run apm compile --validate.
 - Run apm install --dry-run --target <target>.
 - Run apm audit --file .apm/skills/<name>/SKILL.md.
+- Audit changed reference files too. Compilation alone neither redeploys the skill nor proves bundled-script behavior.
+- Inspect an actual installation for resource completeness and test required runtime behavior separately.

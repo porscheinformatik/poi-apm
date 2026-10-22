@@ -18,10 +18,12 @@ applyTo: "**/.apm/agents/*.agent.md"
 ## Agent authoring rules
 
 - Store agent files in `.apm/agents/`.
+- Use real source files and directories. Own-project and Git-backed installs skip symlinked agent sources; local-path dependencies validate and materialize contained symlinks before discovery.
 - Name files with `.agent.md` suffix. Do not name agents `default` or `start` — those collide with script resolution in `apm run`.
 - Required frontmatter: `description`.
 - Recommended frontmatter: `name` (defaults to filename stem if omitted).
-- Optional keys: `model`, `tools`, `color`, `handoffs`.
+- Optional metadata includes `model`, `model_reasoning_effort`, `tools`, `color`, `handoffs`, and `user-invocable`; support and enforcement vary by target.
+- Use `user-invocable: false` (or `visibility: internal`) for programmatic-only intent, not as access control. Picker exclusion depends on harness support; Codex and Kiro cannot represent this setting and emit warnings.
 
 ### Description
 
@@ -47,15 +49,22 @@ Keep the body under 300 lines. Agents inherit the workspace's compiled context �
 
 ## Target behavior summary
 
-| Target                            | Deployment                                               |
-| --------------------------------- | -------------------------------------------------------- |
-| Copilot, Claude, Cursor, OpenCode | Deployed as agent files verbatim                         |
-| Codex                             | Converted to TOML; body becomes `developer_instructions` |
-| Windsurf                          | **Not deployed** — no agents primitive                   |
-| Kiro                              | **Not deployed** — no agents primitive                   |
-| Gemini                            | **Not deployed** — no agents primitive                   |
+| Target                                        | Deployment                                                                                      |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Copilot, Claude, Grok Build, Cursor, OpenCode | Deployed as agent files verbatim                                                                |
+| Codex                                         | TOML with `name`, `description`, string model settings, and body as `developer_instructions`    |
+| Windsurf                                      | **Not deployed** — no agents primitive                                                          |
+| Kiro                                          | `.kiro/agents/<relative-stem>.md`; preserves `description`, `model`, and supported `tools` only |
+| Gemini                                        | **Not deployed** — no agents primitive                                                          |
 
-If a persona must reach Windsurf, Kiro, or Gemini, author it as a skill under `.apm/skills/<name>/SKILL.md` instead. Cascade (Windsurf) auto-invokes skills by their `description` field.
+If a persona must reach Windsurf or Gemini, author it as a skill instead. Reference that skill by name plus type hint; an agent file does not deploy there automatically.
+
+### Codex and Kiro compatibility
+
+- Codex preserves supplied string `model` and `model_reasoning_effort` values without validating model availability. Other metadata is dropped with warnings; there is no arbitrary `codex:` passthrough.
+- Codex does not preserve agent tool restrictions and may inherit all project or session MCP servers. Do not use the generated agent as an equivalent restricted persona when that boundary matters.
+- Kiro derives identity from the deployed path, not `name`. Its permission-bearing tool values must use supported capability tags: `read`, `write`, `shell`, `web`, `subagent`, `knowledge`, `context`, `todo_list`, `@mcp`, `@builtin`, or `*`. Unsupported tags prevent agent deployment.
+- Choose tool metadata for the intended targets. Do not assume an OpenCode boolean mapping is a universal agent tool schema.
 
 ### OpenCode compatibility
 
@@ -67,28 +76,27 @@ If a persona must reach Windsurf, Kiro, or Gemini, author it as a skill under `.
 
 Map features to the closest APM primitive; document what was dropped.
 
-### From GitHub Copilot (`agents.md`)
+### From custom-agent files
 
-- A single `agents.md` file may define multiple personas via headings. Split each persona into its own `.agent.md` file.
-- `model`, `tools`, and `description` frontmatter map directly to APM frontmatter fields.
-- `handoffs` (agent-to-agent routing) is supported as an optional frontmatter list.
+- Treat `AGENTS.md` as project instructions, not a native custom-agent registry. If a source document explicitly contains separate personas, extract each into its own `.agent.md` file only when requested.
+- Preserve `description`, model preferences, tool intent, and handoffs where the target supports them. Document lossy conversions; do not silently remove required restrictions.
 
-### From Windsurf skills or Kiro personas used as agents
+### From Windsurf skills or Kiro agents
 
-- Windsurf and Kiro have no agent primitive; invocable personas in those systems are skills.
-- If the persona must also reach Copilot, Claude, Cursor, or OpenCode, author it as both a `.agent.md` and a skill.
+- Windsurf personas use skills; Kiro has a native agent primitive with the restrictions above.
+- Create both an agent and a skill only when their intended consumer targets require both; avoid duplicating shared policy.
 
 ### Unsupported features — how to handle them
 
-| Feature in source system                                  | APM handling                                                                                                             |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Inline tool definitions or custom tool schemas            | Strip. APM `tools` is a whitelist of harness-native tool names, not definitions. Move custom logic to a skill or prompt. |
-| Memory / conversation persistence config                  | Strip. APM has no memory primitive. Document the expectation in the agent body as a behavioral instruction.              |
-| RAG or knowledge-base attachment                          | Strip. Reference the knowledge source by path in the body as a convention, not a wired config.                           |
-| Trigger conditions or auto-invocation rules               | Strip for agent files (agents are always invoked explicitly). If auto-invocation is needed, re-author as a skill.        |
-| MCP server references inside agent config                 | Move to a separate `.apm/mcp/<name>.mcp.json` entry; reference it by name in the agent body as context.                  |
-| Multiple `model` fallbacks or routing logic               | Pick one `model` value. Document the fallback preference in the body as a note.                                          |
-| Agent-level system prompt injection from an external file | Inline the content into the body. APM agent bodies are self-contained.                                                   |
+| Feature in source system                                  | APM handling                                                                                                                                                    |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Inline tool definitions or custom tool schemas            | Strip. APM `tools` is a whitelist of harness-native tool names, not definitions. Move custom logic to a skill or prompt.                                        |
+| Memory / conversation persistence config                  | Strip. APM has no memory primitive. Document the expectation in the agent body as a behavioral instruction.                                                     |
+| RAG or knowledge-base attachment                          | Strip. Reference the knowledge source by path in the body as a convention, not a wired config.                                                                  |
+| Trigger conditions or auto-invocation rules               | Do not assume runtime selection semantics are portable. Use a skill for description-discovered guidance; agents may be called by users, handoffs, or subagents. |
+| MCP server references inside agent config                 | Declare consumer servers in `dependencies.mcp` in `apm.yml`, or author-only servers in `devDependencies.mcp`; reference the server by name in the body.         |
+| Multiple `model` fallbacks or routing logic               | Pick one `model` value. Document the fallback preference in the body as a note.                                                                                 |
+| Agent-level system prompt injection from an external file | Inline the content into the body. APM agent bodies are self-contained.                                                                                          |
 
 ## Common mistakes
 
@@ -96,7 +104,7 @@ Map features to the closest APM primitive; document what was dropped.
 - Writing a vague persona: "You are a helpful assistant" does not work. Name the specialization.
 - Oversized bodies that duplicate global rules already in an instruction file.
 - Using `tools` as a list or an unsupported `color` value for OpenCode-targeted agents.
-- Targeting Windsurf, Kiro, or Gemini with an agent file — those targets do not receive agent files.
+- Assuming agent files reach Windsurf or Gemini, or that Codex and Kiro preserve all source metadata.
 - Naming an agent `default` or `start`.
 - Referencing other agents, instructions, prompts, or skills by `.apm/...` path instead of by name plus type hint.
 - A body that co-mingles persona, style rules, and review checklist. Split it.
@@ -104,5 +112,7 @@ Map features to the closest APM primitive; document what was dropped.
 ## Validation checklist
 
 - Run `apm compile --validate`.
+- Run `apm audit --file <agent-path>` after editing.
 - Run `apm install --dry-run --target <target>`.
+- Inspect actual installed metadata when target transforms or permission boundaries matter; a successful install does not prove runtime enforcement.
 - If wired via scripts, run `apm preview <script>`.

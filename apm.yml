@@ -9,9 +9,25 @@ targets:
   - codex
   - gemini
 dependencies:
-  apm: []
+  apm:
+    - microsoft/apm/packages/apm-guide
   mcp: []
-includes: auto
+includes:
+  - .apm/instructions/apm-agents.instructions.md
+  - .apm/instructions/apm-instructions.instructions.md
+  - .apm/instructions/apm-prompts.instructions.md
+  - .apm/instructions/apm-skills.instructions.md
+  - .apm/instructions/apm-yml.instructions.md
+  - .apm/prompts/apm-agent.prompt.md
+  - .apm/prompts/apm-instructions.prompt.md
+  - .apm/prompts/apm-prompt.prompt.md
+  - .apm/prompts/apm-skill.prompt.md
+  - .apm/prompts/apm-summary.prompt.md
+  - .apm/prompts/optimize-apm.prompt.md
+  - .apm/prompts/review-apm.prompt.md
+  - .apm/prompts/setup-apm.prompt.md
+  - .apm/skills/apm-authoring/SKILL.md
+  - .apm/skills/apm-authoring/references/authoring.md
 devDependencies:
   apm: []
 scripts: {}
