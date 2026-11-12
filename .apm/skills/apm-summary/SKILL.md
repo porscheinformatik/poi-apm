@@ -1,4 +1,6 @@
 ---
+name: apm-summary
+disable-model-invocation: true
 description: Create or update an APM summary document from .apm contents.
 ---
 

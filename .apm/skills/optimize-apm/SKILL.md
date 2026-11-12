@@ -1,4 +1,6 @@
 ---
+name: optimize-apm
+disable-model-invocation: true
 description: Keep .apm files concise, valid, and portable.
 ---
 

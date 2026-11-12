@@ -1,4 +1,6 @@
 ---
+name: apm-agent
+disable-model-invocation: true
 description: Create or update one APM agent from requirements and execution steps.
 input:
   - source_mode

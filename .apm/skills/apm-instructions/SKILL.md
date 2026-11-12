@@ -1,4 +1,6 @@
 ---
+name: apm-instructions
+disable-model-invocation: true
 description: Create or update a single .instructions.md file from a set of source files.
 input:
   - source_mode

@@ -27,7 +27,7 @@ LOAD references/authoring.md
 
 ## Related Workflows
 
-- Use the `apm-skill`, `apm-prompt`, `apm-instructions`, or `apm-agent` prompt
+- Use the `apm-skill`, `apm-instructions`, or `apm-agent` skill
   to create or update one primitive.
-- Use the `review-apm` or `optimize-apm` prompt for existing package content.
-- Use the `apm-summary` prompt to refresh the package inventory.
+- Use the `review-apm` or `optimize-apm` skill for existing package content.
+- Use the `apm-summary` skill to refresh the package inventory.

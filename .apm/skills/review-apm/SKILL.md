@@ -1,4 +1,6 @@
 ---
+name: review-apm
+disable-model-invocation: true
 description: Review .apm files for concision, validity, and cross-target portability.
 ---
 

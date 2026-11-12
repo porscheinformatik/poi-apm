@@ -1,4 +1,6 @@
 ---
+name: setup-apm
+disable-model-invocation: true
 description: Install or repair APM, verify installation status, and update APM to a requested version.
 input:
   - operation
